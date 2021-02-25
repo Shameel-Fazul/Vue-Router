@@ -3,9 +3,31 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
+    <router-link to="/jobs">Jobs</router-link>
   </div>
+
+  <button @click="redirect">Redirect</button>
+  <button @click="back">Go back</button>
+  <button @click="forward">Go forward</button>
+
   <router-view/> <!-- This is where the router injects the route components -->
 </template>
+
+<script>
+export default {
+  methods: {
+    redirect() {
+      this.$router.push({ name: 'Home' })
+    },
+    back() {
+      this.$router.go(-1) // Go back 1 (back page)
+    },
+    forward() {
+       this.$router.go(-1) // Go forward 1 (forward page)
+    }
+  }
+}
+</script>
 
 <style>
 #app {
@@ -16,16 +38,25 @@
   color: #2c3e50;
 }
 
+
 #nav {
   padding: 30px;
 }
-
 #nav a {
   font-weight: bold;
   color: #2c3e50;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 4px;
 }
-
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: white;
+  background: crimson;
+}
+button {
+  margin: 0 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
 }
 </style>
