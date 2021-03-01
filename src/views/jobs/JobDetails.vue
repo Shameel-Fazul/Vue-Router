@@ -1,6 +1,12 @@
 <template>
-  <h1>Job details</h1>
-  <p>The job id is {{ id }}</p> <!-- Route Parameters -->
+  <div v-if="job">
+    <h1>{{ job.title }}</h1>
+    <p>The job id is {{ job.id }}</p>
+    <p>{{ job.details }}</p> <!-- Route Parameters -->
+  </div>
+  <div v-else>
+    <p>Loading job details...</p>
+  </div>
 </template>
 
 <script>
@@ -11,6 +17,16 @@ export default {
   //     id: this.$route.params.id
   //   }
   // }
+  data() {
+    return {
+      job: null
+    }
+  },
+  mounted() {
+    fetch('http://localhost:3000/jobs/' + this.id).then(res => res.json())
+    .then(data => this.job = data)
+    .catch(err => console.log(err.message))
+  }
 }
 </script>
 
